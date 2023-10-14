@@ -13,5 +13,12 @@ public final class Constants {
 
     public static final double ROTARY_SPEED = 0.25; // Speed of the rotation 
 
-    
+    // Motor Constants
+    // TODO update these to the proper id
+    // TODO choose what constant names you want... id_* is legacy nomenclature
+    public static final int id_LEFTMOTOR1 = 1;
+    public static final int id_LEFTMOTOR2 = 2;
+
+    public static final int id_RIGHTMOTOR1 = 3;
+    public static final int id_RIGHTMOTOR2 = 4;
 }
