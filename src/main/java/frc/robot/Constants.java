@@ -4,6 +4,10 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.AnalogEncoder;
+import edu.wpi.first.wpilibj.Encoder;
+
 /** Add your docs here. */
 public final class Constants {
     public static final int LEFT_JOYSTICK_CHANNEL = 0;
@@ -14,4 +18,19 @@ public final class Constants {
     public static final double ROTARY_SPEED = 0.25; // Speed of the rotation 
 
     
+
+
+    Encoder rotationEncoder;
+    AnalogEncoder liftEncoder;
+    PIDController liftPID;
+    PIDController rotationPID;
+
+
+
+
+
+
+
+
+
 }
