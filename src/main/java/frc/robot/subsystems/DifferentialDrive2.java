@@ -30,8 +30,8 @@ public class DifferentialDrive2 extends SubsystemBase {
     // // based upon gearbox configuration, some of the motors may need to be inverted
     // // such that the motors do not fight eachother and so that the robot goes forward 
     // // and does not spin.
-    // m_leftMotor1.setInverted(true);
-    // m_leftMotor2.setInverted(true);
+    m_leftMotor1.setInverted(true);
+    m_leftMotor2.setInverted(true);
     // m_rightMotor1.setInverted(true);
     // m_rightMotor2.setInverted(true);
   }
@@ -45,7 +45,7 @@ public class DifferentialDrive2 extends SubsystemBase {
   }
 
     
-  @Override
+  @Override  
   public void periodic() {
     // This method will be called once per scheduler run
   }
