@@ -31,6 +31,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     // m_tankDrive.drive(-m_leftStick.getY(), -m_rightStick.getY());
-    m_tankDrive.drive(-(m_controller.getLeftY()/2), -(m_controller.getRightY()/2));
+    m_tankDrive.drive(m_controller.getLeftY()/2, m_controller.getRightY()/2);
   }
 }

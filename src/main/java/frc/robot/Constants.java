@@ -17,9 +17,9 @@ public final class Constants {
     // Motor Constants
     // TODO update these to the proper id
     // TODO choose what constant names you want... id_* is legacy nomenclature
-    public static final int id_LEFTMOTOR1 = 1;
-    public static final int id_LEFTMOTOR2 = 2;
+    public static final int id_LEFTMOTOR1 = 8;
+    public static final int id_LEFTMOTOR2 = 9;
 
-    public static final int id_RIGHTMOTOR1 = 3;
-    public static final int id_RIGHTMOTOR2 = 4;
+    public static final int id_RIGHTMOTOR1 = 1;
+    public static final int id_RIGHTMOTOR2 = 2;
 }
