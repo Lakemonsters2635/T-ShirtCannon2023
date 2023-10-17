@@ -4,14 +4,12 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.motorcontrol.Talon;
-import edu.wpi.first.wpilibj.Encoder; 
+import edu.wpi.first.wpilibj2.command.SubsystemBase; 
 
 public class RotatorEncoderSubsystem extends SubsystemBase {
   /** Creates a new RotatorEncoderSubsystem. */
   public RotatorEncoderSubsystem() {}
-
+  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

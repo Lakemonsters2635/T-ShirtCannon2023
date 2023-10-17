@@ -8,21 +8,25 @@ import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
-public class RotarySubsystem extends SubsystemBase {
+public class RotarySubsystem extends SubsystemBase{
   /** Creates a new RotarySubsystem. */
   public Talon rotaryMotor; // Instantiates rotating motor
 
-  public RotarySubsystem() {
-   rotaryMotor = new Talon(Constants.ROTARY_CHANNEL); // Creates a new talon rotary motor
+  public RotarySubsystem(){
+    // Creates a new talon rotary motor
+    rotaryMotor = new Talon(Constants.ROTARY_CHANNEL); 
   }
 
-  public void rotate () {
-    rotaryMotor.set(Constants.ROTARY_SPEED); // We need to put a speed value
+  public void rotate(){
+    // We need to put a speed value
+    System.out.println("Speed Setting.........");
+    rotaryMotor.set(Constants.ROTARY_SPEED);
+    System.out.println("Speed Set!!!!!!!!");
   }
 
     
   @Override
-  public void periodic() {
+  public void periodic(){
     // This method will be called once per scheduler run
   }
 }

@@ -4,10 +4,7 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-public interface IRotator 
-{
+public interface IRotator{
   
   boolean rotate(double magnitude);
 
