@@ -5,10 +5,23 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.Solenoid;
+
 
 public class ShooterSubsystem extends SubsystemBase {
   /** Creates a new ShooterSubsystem. */
-  public ShooterSubsystem() {}
+
+  Solenoid m_solenoid;
+
+  public ShooterSubsystem() {
+    m_solenoid = new Solenoid(null, 0);
+  }
+
+  public void shoot(boolean bButton) {
+    if (bButton == true) {
+      m_solenoid.set(bButton);
+    }
+  }
 
   @Override
   public void periodic() {
