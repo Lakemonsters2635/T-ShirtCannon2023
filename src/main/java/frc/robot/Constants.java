@@ -22,6 +22,11 @@ public final class Constants {
     public final static int RIGHT_TRIGGER = 3;
     public final int RIGHT_X_AXIS = 4;
     public final int RIGHT_Y_AXIS = 5;
+
+    //Encoder Constants
+    public final static int ROTATION_ENCODER_1 = 7; //DIO1
+    public final static int ROTATION_ENCODER_2 = 8; //DIO2
+
     
     
     public static final int ROTARY_CHANNEL = 4; // Channel for rotating motor
@@ -31,4 +36,6 @@ public final class Constants {
     AnalogEncoder liftEncoder;
     PIDController liftPID;
     PIDController rotationPID;
+
+        
 }

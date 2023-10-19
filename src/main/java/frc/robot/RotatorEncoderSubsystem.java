@@ -4,15 +4,29 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase; 
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class RotatorEncoderSubsystem extends SubsystemBase {
   /** Creates a new RotatorEncoderSubsystem. */
-  public RotatorEncoderSubsystem() {}
+  Encoder rotationEncoder;
+  public RotatorEncoderSubsystem() 
+  {
+    rotationEncoder = new Encoder(Constants.ROTATION_ENCODER_1, Constants.ROTATION_ENCODER_2);
+    
+  }
+  
+  public void getEncoderCounts(){
+    double rotationEncoderCounts = rotationEncoder.get();
+    System.out.println("Count is " + rotationEncoderCounts);
+  }
   
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+
+   
   }
 }
 // test git

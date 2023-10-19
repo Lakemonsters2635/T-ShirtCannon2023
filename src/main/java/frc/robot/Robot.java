@@ -8,6 +8,7 @@ import java.lang.ModuleLayer.Controller;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.Encoder;
 
 
 /**
@@ -18,6 +19,7 @@ public class Robot extends TimedRobot {
   public static XboxController m_Controller;
   public static RotarySubsystem m_RotarySubsystem = new RotarySubsystem();
   public static ArmRotationCommand m_ArmRotationCommand = new ArmRotationCommand(m_RotarySubsystem);
+  public static RotatorEncoderSubsystem m_RotatorEncoderSubsystem = new RotatorEncoderSubsystem();
   
   
 
@@ -50,11 +52,16 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {}
 
   @Override
-  public void teleopInit() {}
+  public void teleopInit() {
+  
+    
+  }
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+   
+  }
 
   @Override
   public void testInit() {}
