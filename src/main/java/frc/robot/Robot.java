@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
 
 import frc.robot.subsystems.DifferentialDrive2;
+import frc.robot.subsystems.ShooterSubsystem;
 
 /**
  * This is a demo program showing the use of the DifferentialDrive class, specifically it contains
@@ -16,6 +17,7 @@ import frc.robot.subsystems.DifferentialDrive2;
  */
 public class Robot extends TimedRobot {
   private DifferentialDrive2 m_tankDrive;
+  private ShooterSubsystem m_shooterSubsystem;
   // private Joystick m_leftStick;
   // private Joystick m_rightStick;
   private XboxController m_controller;
@@ -23,6 +25,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_tankDrive = new DifferentialDrive2();
+    m_shooterSubsystem = new ShooterSubsystem();
     // m_leftStick = new Joystick(Constants.LEFT_JOYSTICK_CHANNEL);
     // m_rightStick = new Joystick(Constants.RIGHT_JOYSTICK_CHANNEL);
     m_controller = new XboxController(Constants.CONTROLLER_CHANNEL);
@@ -32,5 +35,8 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     // m_tankDrive.drive(-m_leftStick.getY(), -m_rightStick.getY());
     m_tankDrive.drive(m_controller.getLeftY()/2, m_controller.getRightY()/2);
+    if(m_controller.getLeftBumperPressed()){
+      m_shooterSubsystem.shoot();
+    }
   }
 }
