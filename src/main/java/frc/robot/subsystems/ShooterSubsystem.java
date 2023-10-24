@@ -5,22 +5,32 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.Solenoid;
+import frc.robot.Constants;
+//import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Relay.Value;
+import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Timer;
+
 
 
 public class ShooterSubsystem extends SubsystemBase {
   /** Creates a new ShooterSubsystem. */
-
-  Solenoid m_solenoid;
+  Relay m_relay;
+  Timer m_timer;
+  // Solenoid m_solenoid;
 
   public ShooterSubsystem() {
-    m_solenoid = new Solenoid(null, 0);
+    // m_solenoid = new Solenoid(null, 0);
+    m_relay = new Relay(Constants.RELAY_CHANNEL);
+    m_timer = new Timer();
   }
 
-  public void shoot(boolean bButton) {
-    if (bButton == true) {
-      m_solenoid.set(bButton);
-    }
+  public void shoot() {
+      m_relay.set(Value.kForward);
+      System.out.println("Relay On");
+      m_timer.delay(5);
+      m_relay.set(Value.kReverse);
+      System.out.println("Relay Off");
   }
 
   @Override

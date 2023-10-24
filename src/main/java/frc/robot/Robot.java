@@ -35,7 +35,8 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     // m_tankDrive.drive(-m_leftStick.getY(), -m_rightStick.getY());
     m_tankDrive.drive(m_controller.getLeftY()/2, m_controller.getRightY()/2);
-    m_shooterSubsystem.shoot(m_controller.getBButton());
-
+    if(m_controller.getLeftBumperPressed()){
+      m_shooterSubsystem.shoot();
+    }
   }
 }

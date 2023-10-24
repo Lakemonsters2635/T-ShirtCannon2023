@@ -15,7 +15,7 @@ public class DifferentialDrive2 extends SubsystemBase {
   private final Talon m_leftMotor2;
   private final Talon m_rightMotor1;
   private final Talon m_rightMotor2;
-
+  
   public DifferentialDrive2() {
     m_leftMotor1 = new Talon(Constants.id_LEFTMOTOR1);
     m_leftMotor2 = new Talon(Constants.id_LEFTMOTOR2);
