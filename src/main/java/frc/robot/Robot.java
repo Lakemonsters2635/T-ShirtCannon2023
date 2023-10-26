@@ -8,6 +8,9 @@ import java.lang.ModuleLayer.Controller;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.PS4Controller.Button;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.Encoder;
 
 
@@ -19,22 +22,22 @@ public class Robot extends TimedRobot {
   public static XboxController m_Controller;
   public static RotarySubsystem m_RotarySubsystem = new RotarySubsystem();
   public static ArmRotationCommand m_ArmRotationCommand = new ArmRotationCommand(m_RotarySubsystem);
-  public static RotatorEncoderSubsystem m_RotatorEncoderSubsystem = new RotatorEncoderSubsystem();
   
   
-
   @Override
   public void robotInit(){
     m_Controller  = new XboxController(Constants.CONTROLLER_CHANNEL);
+    
     //m_ArmRotationCommand.execute();
   }
 
   @Override
   public void robotPeriodic() {
-    if (m_Controller.getLeftY()>0.5){
-        m_ArmRotationCommand.execute();
-    }
+   
+    Trigger rotationButton = new JoystickButton(m_Controller, XboxController.Button.kLeftBumper.value);
+    rotationButton.onTrue(m_ArmRotationCommand);
   }
+
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override

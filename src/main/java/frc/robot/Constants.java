@@ -7,7 +7,6 @@ package frc.robot;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.AnalogEncoder;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.XboxController;
 
 
 /** Add your docs here. */
@@ -24,18 +23,20 @@ public final class Constants {
     public final int RIGHT_Y_AXIS = 5;
 
     //Encoder Constants
-    public final static int ROTATION_ENCODER_1 = 7; //DIO1
-    public final static int ROTATION_ENCODER_2 = 8; //DIO2
+    public final static int ROTATION_ENCODER_1 = 2; //DIO1
+    public final static int ROTATION_ENCODER_2 = 1; //DIO2
 
     
     
     public static final int ROTARY_CHANNEL = 4; // Channel for rotating motor
     public static final double ROTARY_SPEED = 1; // Speed of the rotation 
+    public static final double ROTARY_STOP = 0; //Stop rotation
 
     Encoder rotationEncoder;
     AnalogEncoder liftEncoder;
     PIDController liftPID;
     PIDController rotationPID;
+    
 
         
 }
