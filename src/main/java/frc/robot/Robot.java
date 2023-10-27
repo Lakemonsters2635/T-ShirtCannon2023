@@ -5,38 +5,51 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
-
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.DifferentialDrive2;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.ShooterCommand;
 
 /**
  * This is a demo program showing the use of the DifferentialDrive class, specifically it contains
  * the code necessary to operate a robot with tank drive.
  */
 public class Robot extends TimedRobot {
-  private DifferentialDrive2 m_tankDrive;
-  private ShooterSubsystem m_shooterSubsystem;
-  // private Joystick m_leftStick;
-  // private Joystick m_rightStick;
-  private XboxController m_controller;
+  private final DifferentialDrive2 m_tankDrive = new DifferentialDrive2(); 
+  private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
+  private final ShooterCommand shooterCommand = new ShooterCommand(m_shooterSubsystem);
+
+  private Joystick m_leftStick;
+  private Joystick m_rightStick;
+  // private CommandXboxController m_controller;
+  // private XboxController m_controller;
+
+  private Trigger shooterButton;
+
+  // Trigger shooterButton = new JoystickButton(m_controller, XboxController.Button.kB.value);
+
 
   @Override
   public void robotInit() {
-    m_tankDrive = new DifferentialDrive2();
-    m_shooterSubsystem = new ShooterSubsystem();
-    // m_leftStick = new Joystick(Constants.LEFT_JOYSTICK_CHANNEL);
-    // m_rightStick = new Joystick(Constants.RIGHT_JOYSTICK_CHANNEL);
-    m_controller = new XboxController(Constants.CONTROLLER_CHANNEL);
+    
+    m_leftStick = new Joystick(Constants.LEFT_JOYSTICK_CHANNEL);
+    m_rightStick = new Joystick(Constants.RIGHT_JOYSTICK_CHANNEL);
+    // m_controller = new XboxController(Constants.CONTROLLER_CHANNEL);
+    shooterButton = new JoystickButton(m_leftStick, 1);
   }
 
   @Override
   public void teleopPeriodic() {
-    // m_tankDrive.drive(-m_leftStick.getY(), -m_rightStick.getY());
-    m_tankDrive.drive(m_controller.getLeftY()/2, m_controller.getRightY()/2);
-    if(m_controller.getLeftBumperPressed()){
-      m_shooterSubsystem.shoot();
-    }
+    m_tankDrive.drive(-m_leftStick.getY(), -m_rightStick.getY());
+    // m_tankDrive.drive(m_controller.getLeftY()/2, m_controller.getRightY()/2);
+    // shooterButton.onTrue(shooterCommand);
+    // if(){
+      shooterButton.onTrue(shooterCommand);
+    // }
   }
 }

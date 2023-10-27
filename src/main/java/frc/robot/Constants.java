@@ -6,8 +6,8 @@ package frc.robot;
 
 /** Add your docs here. */
 public final class Constants {
-    // public static final int LEFT_JOYSTICK_CHANNEL = 3; // For xbox controller
-    // public static final int RIGHT_JOYSTICK_CHANNEL = 3; // For xbox controller
+    public static final int LEFT_JOYSTICK_CHANNEL = 0; // For xbox controller
+    public static final int RIGHT_JOYSTICK_CHANNEL = 1; // For xbox controller
     public static final int CONTROLLER_CHANNEL = 3; // For xbox controller
     public static final int RELAY_CHANNEL = 0; // Channel for relay (controls the shooting)
     public static final int ROTARY_CHANNEL = 1; // Channel for rotating motor
