@@ -12,12 +12,13 @@ import edu.wpi.first.wpilibj.Encoder;
 /** Add your docs here. */
 public final class Constants {
     public final static int CONTROLLER_CHANNEL = 2;
-
+    public final static int leftJoystick = 0;
+    public final static int rightJoystick = 1;
 
     //xbox controller Constants
     public final int LEFT_X_AXIS = 0;
     public final int LEFT_Y_AXIS = 1;
-    public final static int LEFT_TRIGGER = 2;
+    public final static int LEFT_TRIGGER = 1;
     public final static int RIGHT_TRIGGER = 3;
     public final int RIGHT_X_AXIS = 4;
     public final int RIGHT_Y_AXIS = 5;

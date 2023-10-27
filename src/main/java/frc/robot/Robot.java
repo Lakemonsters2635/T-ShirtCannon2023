@@ -4,14 +4,12 @@
 
 package frc.robot;
 
-import java.lang.ModuleLayer.Controller;
-
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.PS4Controller.Button;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import edu.wpi.first.wpilibj.Encoder;
 
 
 /**
@@ -19,23 +17,22 @@ import edu.wpi.first.wpilibj.Encoder;
  * the code necessary to operate a robot with tank drive.
  */
 public class Robot extends TimedRobot {
-  public static XboxController m_Controller;
+  public static Joystick leftJoystick = new Joystick(0);
+  public static Joystick rightJoystick = new Joystick(1);
   public static RotarySubsystem m_RotarySubsystem = new RotarySubsystem();
   public static ArmRotationCommand m_ArmRotationCommand = new ArmRotationCommand(m_RotarySubsystem);
+  public static Trigger rotationButton;
   
   
   @Override
   public void robotInit(){
-    m_Controller  = new XboxController(Constants.CONTROLLER_CHANNEL);
-    
-    //m_ArmRotationCommand.execute();
   }
 
   @Override
   public void robotPeriodic() {
    
-    Trigger rotationButton = new JoystickButton(m_Controller, XboxController.Button.kLeftBumper.value);
-    rotationButton.onTrue(m_ArmRotationCommand);
+    rotationButton = new JoystickButton(leftJoystick, Constants.LEFT_TRIGGER);
+    
   }
 
 
@@ -55,15 +52,12 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {}
 
   @Override
-  public void teleopInit() {
-  
-    
-  }
+  public void teleopInit() {}
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-   
+    rotationButton.onTrue(m_ArmRotationCommand);
   }
 
   @Override

@@ -23,13 +23,16 @@ public class ArmRotationCommand extends CommandBase {
   @Override
   public void initialize() {
     m_RotarySubsystem.resetEncoderCounts();
+    System.out.println("This command runs plsplsplspls");
     m_RotarySubsystem.rotate();
-
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute(){
+    
+
   }
 
   // Called once the command ends or is interrupted.
