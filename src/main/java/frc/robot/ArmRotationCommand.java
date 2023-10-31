@@ -14,7 +14,7 @@ public class ArmRotationCommand extends CommandBase {
   public ArmRotationCommand(RotarySubsystem rotarySubsystem){
     // Use addRequirements() here to declare subsystem dependencies.
     m_RotarySubsystem = rotarySubsystem;
-
+    System.out.println("ArmRotationCommand Constructor");
     addRequirements(m_RotarySubsystem);
   }
 
@@ -23,7 +23,7 @@ public class ArmRotationCommand extends CommandBase {
   @Override
   public void initialize() {
     m_RotarySubsystem.resetEncoderCounts();
-    System.out.println("This command runs plsplsplspls");
+    System.out.println("ArmRotationCommand.initialize()");
     m_RotarySubsystem.rotate();
     
   }
@@ -31,7 +31,7 @@ public class ArmRotationCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute(){
-    System.out.println("the command is running");
+    System.out.println("ArmRotationCommand.execut()");
     
 
   }

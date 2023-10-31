@@ -17,20 +17,21 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * the code necessary to operate a robot with tank drive.
  */
 public class Robot extends TimedRobot {
-  public static Joystick leftJoystick = new Joystick(0);
-  public static Joystick rightJoystick = new Joystick(1);
+  public static Joystick leftJoystick = new Joystick(Constants.leftJoystick);
+  public static Joystick rightJoystick = new Joystick(Constants.rightJoystick);
   public static RotarySubsystem m_RotarySubsystem = new RotarySubsystem();
   public static ArmRotationCommand m_ArmRotationCommand = new ArmRotationCommand(m_RotarySubsystem);
   
   public void configureBindings(){
-    Trigger rotationButton = new JoystickButton(leftJoystick, 1);
-    rotationButton.onTrue(new ArmRotationCommand(m_RotarySubsystem));
+    Trigger rotationButton = new JoystickButton(rightJoystick, 1);
+    rotationButton.onTrue(m_ArmRotationCommand);
+    System.out.println("configure buttons");
   }
   
   
   @Override
   public void robotInit(){
-    System.out.println("this is printing");
+    System.out.println("robot init in Robot");
     configureBindings();
   }
 
