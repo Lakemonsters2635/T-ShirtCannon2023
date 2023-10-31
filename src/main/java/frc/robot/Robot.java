@@ -21,17 +21,22 @@ public class Robot extends TimedRobot {
   public static Joystick rightJoystick = new Joystick(1);
   public static RotarySubsystem m_RotarySubsystem = new RotarySubsystem();
   public static ArmRotationCommand m_ArmRotationCommand = new ArmRotationCommand(m_RotarySubsystem);
-  public static Trigger rotationButton;
+  
+  public void configureBindings(){
+    Trigger rotationButton = new JoystickButton(leftJoystick, 1);
+    rotationButton.onTrue(new ArmRotationCommand(m_RotarySubsystem));
+  }
   
   
   @Override
   public void robotInit(){
+    System.out.println("this is printing");
+    configureBindings();
   }
 
   @Override
   public void robotPeriodic() {
    
-    rotationButton = new JoystickButton(leftJoystick, Constants.LEFT_TRIGGER);
     
   }
 
@@ -52,13 +57,17 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {}
 
   @Override
-  public void teleopInit() {}
+  public void teleopInit() {
+    
+  }
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    rotationButton.onTrue(m_ArmRotationCommand);
+    
+   // System.out.println("On true area");
   }
+
 
   @Override
   public void testInit() {}
