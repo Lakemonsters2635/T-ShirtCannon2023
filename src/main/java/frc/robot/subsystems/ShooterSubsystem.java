@@ -32,12 +32,61 @@ public class ShooterSubsystem extends SubsystemBase {
       // m_timer.delay(5);
       // m_relay.set(Value.kReverse);
       // System.out.println("Relay Off");
-      m_relay.set(Value.kOn);
+      // m_relay.set(Value.kOn); // red light is off for kon
+      m_relay.set(Value.kReverse); // red light is on for kReverse
+      m_relay.set(Value.kForward); // orange light is on
 
   }
+  public void shootForward() {
+    // m_relay.set(Value.kForward);
+    System.out.println("Relay forward");
+    // m_timer.delay(5);
+    // m_relay.set(Value.kReverse);
+    // System.out.println("Relay Off");
+    // m_relay.set(Value.kOn); // red light is off for kon
+    // m_relay.set(Value.kReverse); // red light is on for kReverse
+    m_relay.set(Value.kForward); // orange light is on
+
+}
+
+  public void shootBack() {
+    // m_relay.set(Value.kForward);
+    System.out.println("Relay back");
+    // m_timer.delay(5);
+    // m_relay.set(Value.kReverse);
+    // System.out.println("Relay Off");
+    // m_relay.set(Value.kOn); // red light is off for kon
+    m_relay.set(Value.kReverse); // red light is on for kReverse
+    // m_relay.set(Value.kForward); // orange light is on
+
+}
+
+public void shootOn() {
+  // m_relay.set(Value.kForward);
+  System.out.println("Relay On");
+  // m_timer.delay(5);
+  // m_relay.set(Value.kReverse);
+  // System.out.println("Relay Off");
+  // m_relay.set(Value.kOn); // red light is off for kon
+  m_relay.set(Value.kOn); // red light is on for kReverse
+  // m_relay.set(Value.kForward); // orange light is on
+
+}
+
+public void shootOff() {
+  // m_relay.set(Value.kForward);
+  System.out.println("Relay Off");
+  // m_timer.delay(5);
+  // m_relay.set(Value.kReverse);
+  // System.out.println("Relay Off");
+  // m_relay.set(Value.kOn); // red light is off for kon
+  m_relay.set(Value.kOff); // red light is on for kReverse
+  // m_relay.set(Value.kForward); // orange light is on
+
+}
 
   public void stop() {
-    m_relay.set(Value.kOff);
+    m_relay.set(Value.kReverse);
   }
 
   @Override

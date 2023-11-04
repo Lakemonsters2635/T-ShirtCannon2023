@@ -30,7 +30,7 @@ public class ShooterCommand extends CommandBase {
   public void initialize() {
     m_timer.start();
     startTime = m_timer.get();
-    m_shooterSubsystem.shoot();
+    // m_shooterSubsystem.shoot();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -41,15 +41,25 @@ public class Robot extends TimedRobot {
     m_rightStick = new Joystick(Constants.RIGHT_JOYSTICK_CHANNEL);
     // m_controller = new XboxController(Constants.CONTROLLER_CHANNEL);
     shooterButton = new JoystickButton(m_leftStick, 1);
+    shooterButton.onTrue(shooterCommand);
   }
 
   @Override
   public void teleopPeriodic() {
-    m_tankDrive.drive(-m_leftStick.getY(), -m_rightStick.getY());
+    m_tankDrive.drive(m_leftStick.getY(), m_rightStick.getY());
     // m_tankDrive.drive(m_controller.getLeftY()/2, m_controller.getRightY()/2);
     // shooterButton.onTrue(shooterCommand);
-    // if(){
-      shooterButton.onTrue(shooterCommand);
-    // }
+    if(m_leftStick.getY() > 0.1){
+      m_shooterSubsystem.shootForward(); // red
+    }
+    else if (m_leftStick.getY() < -0.1) {
+      m_shooterSubsystem.shootBack(); // green
+    }
+    if(m_rightStick.getY() > 0.1){
+      m_shooterSubsystem.shootOn(); // orange
+    }
+    else if (m_rightStick.getY() < -0.1) {
+      m_shooterSubsystem.shootOff(); // no light
+    }
   }
 }
