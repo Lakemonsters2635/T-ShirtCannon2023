@@ -49,7 +49,10 @@ public class Robot extends TimedRobot {
     m_tankDrive.drive(m_leftStick.getY(), m_rightStick.getY());
     // m_tankDrive.drive(m_controller.getLeftY()/2, m_controller.getRightY()/2);
     // shooterButton.onTrue(shooterCommand);
-    if(m_leftStick.getY() > 0.1){
+
+    // ALL OF THESE IF STATEMENTS ARE FOR TESTING THE RELAY STATES
+
+    if(m_leftStick.getY() > 0.1){  
       m_shooterSubsystem.shootForward(); // red
     }
     else if (m_leftStick.getY() < -0.1) {
