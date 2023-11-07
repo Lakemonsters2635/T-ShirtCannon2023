@@ -4,8 +4,10 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -21,6 +23,7 @@ public class Robot extends TimedRobot {
   public static Joystick rightJoystick = new Joystick(Constants.rightJoystick);
   public static RotarySubsystem m_RotarySubsystem = new RotarySubsystem();
   public static ArmRotationCommand m_ArmRotationCommand = new ArmRotationCommand(m_RotarySubsystem);
+  Timer timer = new Timer();
   
   public void configureBindings(){
     Trigger rotationButton = new JoystickButton(rightJoystick, Constants.ROTATION_BUTTON);
@@ -65,13 +68,16 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() 
   {
-    System.out.println(m_RotarySubsystem.getEncoderCounts());
+    //System.out.println(m_RotarySubsystem.getEncoderCounts());
     if(rightJoystick.getTriggerPressed()){
       m_ArmRotationCommand.initialize();
+      timer.start();
     }
-    if(m_RotarySubsystem.getEncoderCounts()>=2550){
+    if(timer.get() > 1 && !m_RotarySubsystem.rotatorSwitch.get()){
         m_ArmRotationCommand.end(true);
+        System.out.println(m_RotarySubsystem.rotatorSwitch.get());
         m_RotarySubsystem.resetEncoderCounts();
+        timer.reset();
     }
     if(leftJoystick.getTriggerPressed()){
       m_ArmRotationCommand.end(true);

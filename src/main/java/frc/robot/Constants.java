@@ -34,6 +34,11 @@ public final class Constants {
     public static final double ROTARY_SPEED = 1; // Speed of the rotation 
     public static final double ROTARY_STOP = 0; //Stop rotation
 
+
+    // Switch Constants
+    public static final int ROTATOR_SWITCH_CHANNEL = 3; //DI03
+
+
     Encoder rotationEncoder;
     AnalogEncoder liftEncoder;
     PIDController liftPID;

@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class ArmRotationCommand extends CommandBase {
   /** Creates a new ArmRotationCommand. */
   private RotarySubsystem m_RotarySubsystem;
+  
 
   public ArmRotationCommand(RotarySubsystem rotarySubsystem){
     // Use addRequirements() here to declare subsystem dependencies.
@@ -31,9 +32,6 @@ public class ArmRotationCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute(){
-    System.out.println("ArmRotationCommand.execute()");
-    
-
   }
 
   // Called once the command ends or is interrupted.
