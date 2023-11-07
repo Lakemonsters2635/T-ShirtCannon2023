@@ -35,7 +35,7 @@ public class RotarySubsystem extends SubsystemBase{
   public void resetEncoderCounts(){
     rotationEncoder.reset();
   }
-  public int getEncoderCounts(){
+  public double getEncoderCounts(){
     //System.out.println("Count is " + theta); 
     
     return rotationEncoder.getRaw();

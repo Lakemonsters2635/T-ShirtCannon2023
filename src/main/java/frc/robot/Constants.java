@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj.Encoder;
 /** Add your docs here. */
 public final class Constants {
     public final static int CONTROLLER_CHANNEL = 2;
-    public final static int leftJoystick = 0;
-    public final static int rightJoystick = 1;
+    public final static int leftJoystick = 1;
+    public final static int rightJoystick = 0;
 
     //xbox controller Constants
     public final int LEFT_X_AXIS = 0;
@@ -27,7 +27,8 @@ public final class Constants {
     public final static int ROTATION_ENCODER_1 = 2; //DIO1
     public final static int ROTATION_ENCODER_2 = 1; //DIO2
 
-    
+    //Button Bindings
+    public static final int ROTATION_BUTTON = 1;
     
     public static final int ROTARY_CHANNEL = 4; // Channel for rotating motor
     public static final double ROTARY_SPEED = 1; // Speed of the rotation 
