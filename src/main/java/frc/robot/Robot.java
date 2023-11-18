@@ -70,14 +70,22 @@ public class Robot extends TimedRobot {
     //   m_shooterSubsystem.shootOff(); // no light
     // }
 
+    /*  THIS IS THE ACTUAL TEST CODE FOR LAUNCHING THINGS :D
+    When you press the trigger, it sets RELAY to the open state and after 0.5 seconds 
+    and then sets it closed. (FIY: WE DON'T KNOW WHICH RELAY VALUES ARE CORRECT AND ACTUALLY WORK 
+    SO WE NEED TO TEST EACH VALUE WITH THE GAS TANKFULL)
+    */
     if (m_rightStick.getTriggerPressed()) {
       timer.start();
       shooterCommand.initialize();
-      
     }
-    if (timer.get() >= 3.0) {
+    if (timer.get() >= 0.5) {
       shooterCommand.end(true);
+      timer.stop();
+      timer.reset();
+      // System.out.println(timer.get());
     }
+    
    
     
   }
