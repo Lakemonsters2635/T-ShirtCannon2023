@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -31,6 +32,8 @@ public class Robot extends TimedRobot {
 
   private Trigger shooterButton;
 
+  private Timer timer;
+
   // Trigger shooterButton = new JoystickButton(m_controller, XboxController.Button.kB.value);
 
 
@@ -42,27 +45,40 @@ public class Robot extends TimedRobot {
     // m_controller = new XboxController(Constants.CONTROLLER_CHANNEL);
     shooterButton = new JoystickButton(m_leftStick, 1);
     shooterButton.onTrue(shooterCommand);
+    timer = new Timer();
   }
 
   @Override
   public void teleopPeriodic() {
     m_tankDrive.drive(m_leftStick.getY(), m_rightStick.getY());
+    
     // m_tankDrive.drive(m_controller.getLeftY()/2, m_controller.getRightY()/2);
     // shooterButton.onTrue(shooterCommand);
 
     // ALL OF THESE IF STATEMENTS ARE FOR TESTING THE RELAY STATES
 
-    if(m_leftStick.getY() > 0.1){  
-      m_shooterSubsystem.shootForward(); // red
+    // if(m_leftStick.getY() > 0.1){  
+    //   m_shooterSubsystem.shootForward(); // red
+    // }
+    // else if (m_leftStick.getY() < -0.1) {
+    //   m_shooterSubsystem.shootBack(); // green
+    // }
+    // if(m_rightStick.getY() > 0.1){
+    //   m_shooterSubsystem.shootOn(); // orange
+    // }
+    // else if (m_rightStick.getY() < -0.1) {
+    //   m_shooterSubsystem.shootOff(); // no light
+    // }
+
+    if (m_rightStick.getTriggerPressed()) {
+      timer.start();
+      shooterCommand.initialize();
+      
     }
-    else if (m_leftStick.getY() < -0.1) {
-      m_shooterSubsystem.shootBack(); // green
+    if (timer.get() >= 3.0) {
+      shooterCommand.end(true);
     }
-    if(m_rightStick.getY() > 0.1){
-      m_shooterSubsystem.shootOn(); // orange
-    }
-    else if (m_rightStick.getY() < -0.1) {
-      m_shooterSubsystem.shootOff(); // no light
-    }
+   
+    
   }
 }

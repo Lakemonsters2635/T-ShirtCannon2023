@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class ShooterSubsystem extends SubsystemBase {
   /** Creates a new ShooterSubsystem. */
-  private Relay m_relay;
+  public Relay m_relay;
   // Timer m_timer;
   // Solenoid m_solenoid;
 

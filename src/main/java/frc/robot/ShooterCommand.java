@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ShooterSubsystem;
 
@@ -14,7 +15,8 @@ public class ShooterCommand extends CommandBase {
 
   double startTime;
   double endTime;
-  double delay = 0.5; // How long we want the relay to be set to kForward
+  double delay = 5.0; // How long we want the relay to be set to kForward
+  boolean isShooterForward;
 
   /** Creates a new ShooterCommand. */
   public ShooterCommand(ShooterSubsystem shooterSubsystem) {
@@ -28,29 +30,39 @@ public class ShooterCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_timer.start();
-    startTime = m_timer.get();
-    // m_shooterSubsystem.shoot();
+    
+    // m_timer.start();
+    // startTime = m_timer.get();
+    m_shooterSubsystem.shootForward();
+    isShooterForward =  m_shooterSubsystem.m_relay.get() == Value.kForward;
+    System.out.println("In initialize: " + isShooterForward);
+    System.out.println("Shootercommand is working");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    endTime = m_timer.get();
-    System.out.println("Shootercommand is working");
+    // endTime = m_timer.get();
+    
+    
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_shooterSubsystem.stop();
+    isShooterForward = m_shooterSubsystem.m_relay.get() == Value.kForward;
+    System.out.println("In end method: " + isShooterForward);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (endTime-startTime > delay) {
-      m_shooterSubsystem.stop();
-      return true;
-    }
+    // if (endTime-startTime > delay && isShooterForward == true) {
+      
+      
+    //   return true;
+    // }
     return false;
   }
 }
