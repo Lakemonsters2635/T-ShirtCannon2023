@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -68,6 +69,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() 
   {
+    String enconderCounts = ""+m_RotarySubsystem.getEncoderCounts();
+    SmartDashboard.putNumber("Encoder Counts",m_RotarySubsystem.getEncoderCounts());
+
     //System.out.println(m_RotarySubsystem.getEncoderCounts());
     if(rightJoystick.getTriggerPressed()){
       m_ArmRotationCommand.initialize();
@@ -77,6 +81,7 @@ public class Robot extends TimedRobot {
         m_ArmRotationCommand.end(true);
         System.out.println(m_RotarySubsystem.rotatorSwitch.get());
         m_RotarySubsystem.resetEncoderCounts();
+        
         timer.reset();
     }
     if(leftJoystick.getTriggerPressed()){
