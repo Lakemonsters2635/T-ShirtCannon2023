@@ -86,7 +86,7 @@ public void shootOff() {
 }
 
   public void stop() {
-    m_relay.set(Value.kReverse);
+    m_relay.set(Value.kOff);
   }
 
   @Override

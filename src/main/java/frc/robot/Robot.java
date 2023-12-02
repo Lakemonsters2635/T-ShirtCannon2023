@@ -30,7 +30,7 @@ public class Robot extends TimedRobot {
   // private CommandXboxController m_controller;
   // private XboxController m_controller;
 
-  private Trigger shooterButton;
+  // private Trigger shooterButton;
 
   private Timer timer;
 
@@ -43,8 +43,7 @@ public class Robot extends TimedRobot {
     m_leftStick = new Joystick(Constants.LEFT_JOYSTICK_CHANNEL);
     m_rightStick = new Joystick(Constants.RIGHT_JOYSTICK_CHANNEL);
     // m_controller = new XboxController(Constants.CONTROLLER_CHANNEL);
-    shooterButton = new JoystickButton(m_leftStick, 1);
-    shooterButton.onTrue(shooterCommand);
+    // shooterButton = new JoystickButton(m_leftStick, 1);
     timer = new Timer();
   }
 
@@ -78,9 +77,11 @@ public class Robot extends TimedRobot {
     if (m_rightStick.getTriggerPressed()) {
       timer.start();
       shooterCommand.initialize();
+      System.out.println("Right Stick");
     }
-    if (timer.get() >= 0.5) {
+    if (timer.get() >= 0.03) {
       shooterCommand.end(true);
+      System.out.println("Left Stick");
       timer.stop();
       timer.reset();
       // System.out.println(timer.get());

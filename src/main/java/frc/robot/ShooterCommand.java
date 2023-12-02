@@ -50,7 +50,7 @@ public class ShooterCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_shooterSubsystem.stop();
+    m_shooterSubsystem.shootOff();
     isShooterForward = m_shooterSubsystem.m_relay.get() == Value.kForward;
     System.out.println("In end method: " + isShooterForward);
   }
