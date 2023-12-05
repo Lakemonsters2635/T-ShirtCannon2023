@@ -9,17 +9,15 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+
 import frc.robot.subsystems.DifferentialDrive2;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.ShooterCommand;
@@ -29,54 +27,44 @@ import frc.robot.ShooterCommand;
  * the code necessary to operate a robot with tank drive.
  */
 public class Robot extends TimedRobot {
-  public static Joystick leftJoystick = new Joystick(Constants.leftJoystick);
-  public static Joystick rightJoystick = new Joystick(Constants.rightJoystick);
+  public static Joystick m_leftStick = new Joystick(Constants.LEFT_JOYSTICK_CHANNEL);
+  public static Joystick m_rightStick = new Joystick(Constants.RIGHT_JOYSTICK_CHANNEL);
   public static RotarySubsystem m_RotarySubsystem = new RotarySubsystem();
   public static ArmRotationCommand m_ArmRotationCommand = new ArmRotationCommand(m_RotarySubsystem);
-  Timer timer = new Timer();
-  
-  public void configureBindings(){
-    Trigger rotationButton = new JoystickButton(rightJoystick, Constants.ROTATION_BUTTON);
-    rotationButton.onTrue(new ArmRotationCommand(m_RotarySubsystem));
-    System.out.println("Robot.configureBindigs()");
-  }
-  
-  
-  private final DifferentialDrive2 m_tankDrive = new DifferentialDrive2(); 
-  private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
-  private final ShooterCommand shooterCommand = new ShooterCommand(m_shooterSubsystem);
-
-  private Joystick m_leftStick;
-  private Joystick m_rightStick;
+  public final DifferentialDrive2 m_tankDrive = new DifferentialDrive2(); 
+  public final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
+  public final ShooterCommand shooterCommand = new ShooterCommand(m_shooterSubsystem);
   // private CommandXboxController m_controller;
   // private XboxController m_controller;
 
   // private Trigger shooterButton;
 
-  private Timer timer;
+  private Timer shootTimer;
+  private Timer rotateTimer;
 
-  // Trigger shooterButton = new JoystickButton(m_controller, XboxController.Button.kB.value);
-
-
+  public void configureBindings(){
+    // Trigger shooterButton = new JoystickButton(m_controller, XboxController.Button.kB.value);
+    Trigger rotationButton = new JoystickButton(m_rightStick, Constants.ROTATION_BUTTON);
+    rotationButton.onTrue(new ArmRotationCommand(m_RotarySubsystem));
+    System.out.println("Robot.configureBindigs()");
+  }
+  
   @Override
   public void robotInit(){
     System.out.println("Robot.robotInit()");
     configureBindings();
-  }
 
-  @Override
-  public void robotPeriodic() {
-    
-  public void robotInit() {
-    
     m_leftStick = new Joystick(Constants.LEFT_JOYSTICK_CHANNEL);
     m_rightStick = new Joystick(Constants.RIGHT_JOYSTICK_CHANNEL);
     // m_controller = new XboxController(Constants.CONTROLLER_CHANNEL);
     // shooterButton = new JoystickButton(m_leftStick, 1);
-    timer = new Timer();
+    shootTimer = new Timer();
+    rotateTimer = new Timer();
   }
 
-
+  @Override
+  public void robotPeriodic() {}
+    
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {}
@@ -93,37 +81,36 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {}
 
   @Override
-  public void teleopInit() {
-    
-  }
+  public void teleopInit() {}
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() 
-  {
+  public void teleopPeriodic() {
+
+    m_tankDrive.drive(m_leftStick.getY(), m_rightStick.getY());
+
     String enconderCounts = ""+m_RotarySubsystem.getEncoderCounts();
     SmartDashboard.putNumber("Encoder Counts",m_RotarySubsystem.getEncoderCounts());
 
     //System.out.println(m_RotarySubsystem.getEncoderCounts());
-    if(rightJoystick.getTriggerPressed()){
+    if(m_leftStick.getTriggerPressed()) {
       m_ArmRotationCommand.initialize();
-      timer.start();
+      rotateTimer.start();
     }
-    if(timer.get() > 1 && !m_RotarySubsystem.rotatorSwitch.get()){
-        m_ArmRotationCommand.end(true);
-        System.out.println(m_RotarySubsystem.rotatorSwitch.get());
-        m_RotarySubsystem.resetEncoderCounts();
-        
-        timer.reset();
-    }
-    if(leftJoystick.getTriggerPressed()){
+
+    if(rotateTimer.get() > 1 && !m_RotarySubsystem.rotatorSwitch.get()) {
       m_ArmRotationCommand.end(true);
+      System.out.println(m_RotarySubsystem.rotatorSwitch.get());
+      m_RotarySubsystem.resetEncoderCounts(); 
+      rotateTimer.reset();
     }
+
+    // if(m_leftStick.getTriggerPressed()) {
+    //   m_ArmRotationCommand.end(true);
+    // }
     
    // System.out.println("On true area");
-  public void teleopPeriodic() {
-    m_tankDrive.drive(m_leftStick.getY(), m_rightStick.getY());
-    
+   
     // m_tankDrive.drive(m_controller.getLeftY()/2, m_controller.getRightY()/2);
     // shooterButton.onTrue(shooterCommand);
 
@@ -148,22 +135,19 @@ public class Robot extends TimedRobot {
     SO WE NEED TO TEST EACH VALUE WITH THE GAS TANKFULL)
     */
     if (m_rightStick.getTriggerPressed()) {
-      timer.start();
+      shootTimer.start();
       shooterCommand.initialize();
       System.out.println("Right Stick");
     }
-    if (timer.get() >= 0.03) {
+    if (shootTimer.get() >= 0.03) {
       shooterCommand.end(true);
       System.out.println("Left Stick");
-      timer.stop();
-      timer.reset();
+      shootTimer.stop();
+      shootTimer.reset();
       // System.out.println(timer.get());
     }
     
-   
-    
   }
-
 
   @Override
   public void testInit() {}
