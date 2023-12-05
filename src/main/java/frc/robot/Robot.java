@@ -87,8 +87,10 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
+    // TANK DRIVE
     m_tankDrive.drive(m_leftStick.getY(), m_rightStick.getY());
 
+    // ROTATION BUTTON
     String enconderCounts = ""+m_RotarySubsystem.getEncoderCounts();
     SmartDashboard.putNumber("Encoder Counts",m_RotarySubsystem.getEncoderCounts());
 
@@ -134,6 +136,8 @@ public class Robot extends TimedRobot {
     and then sets it closed. (FIY: WE DON'T KNOW WHICH RELAY VALUES ARE CORRECT AND ACTUALLY WORK 
     SO WE NEED TO TEST EACH VALUE WITH THE GAS TANKFULL)
     */
+
+    // SHOOT BUTTON
     if (m_rightStick.getTriggerPressed()) {
       shootTimer.start();
       shooterCommand.initialize();
