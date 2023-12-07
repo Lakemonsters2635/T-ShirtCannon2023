@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -21,7 +22,7 @@ public class RobotContainer {
     public final Joystick m_leftStick = new Joystick(Constants.LEFT_JOYSTICK_CHANNEL);
     public final Joystick m_rightStick = new Joystick(Constants.RIGHT_JOYSTICK_CHANNEL);
     // private CommandXboxController m_controller;
-    // private XboxController m_controller;
+    public final XboxController m_controller = new XboxController(Constants.CONTROLLER_CHANNEL);
 
     public RobotContainer() {
 
@@ -29,13 +30,17 @@ public class RobotContainer {
     }
 
     private void configureBindings(){
-        // Trigger shooterButton = new JoystickButton(m_controller, XboxController.Button.kB.value);
+        Trigger shooterButtonX = new JoystickButton(m_controller, XboxController.Button.kB.value);
+        shooterButtonX.onTrue(new ShooterCommand(m_shooterSubsystem));
 
-        Trigger shooterButton = new JoystickButton(m_rightStick, Constants.SHOOTER_BUTTON);
-        shooterButton.onTrue(new ShooterCommand(m_shooterSubsystem));
+        Trigger rotationButtonX = new JoystickButton(m_controller, XboxController.Button.kA.value);
+        rotationButtonX.onTrue(new ArmRotationCommand(m_RotarySubsystem));
 
-        Trigger rotationButton = new JoystickButton(m_leftStick, Constants.ROTATION_BUTTON);
-        rotationButton.onTrue(new ArmRotationCommand(m_RotarySubsystem));
+        Trigger shooterButtonJ = new JoystickButton(m_rightStick, Constants.SHOOTER_BUTTON);
+        shooterButtonJ.onTrue(new ShooterCommand(m_shooterSubsystem));
+
+        Trigger rotationButtonJ = new JoystickButton(m_leftStick, Constants.ROTATION_BUTTON);
+        rotationButtonJ.onTrue(new ArmRotationCommand(m_RotarySubsystem));
 
         System.out.println("Robot.configureBindigs()");
     }

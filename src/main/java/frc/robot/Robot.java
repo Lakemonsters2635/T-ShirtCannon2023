@@ -85,10 +85,11 @@ public class Robot extends TimedRobot {
 
     // TANK DRIVE
     m_robotContainer.m_tankDrive.drive(m_robotContainer.m_leftStick.getY(), m_robotContainer.m_rightStick.getY());
+    m_robotContainer.m_tankDrive.drive(m_robotContainer.m_controller.getLeftY(), m_robotContainer.m_controller.getRightY());
 
     // ROTATION BUTTON
-    String enconderCounts = ""+m_robotContainer.m_RotarySubsystem.getEncoderCounts();
-    SmartDashboard.putNumber("Encoder Counts",m_robotContainer.m_RotarySubsystem.getEncoderCounts());
+    // String enconderCounts = ""+m_robotContainer.m_RotarySubsystem.getEncoderCounts();
+    // SmartDashboard.putNumber("Encoder Counts",m_robotContainer.m_RotarySubsystem.getEncoderCounts());
 
     // System.out.println(m_robotContainer.m_RotarySubsystem.getEncoderCounts());
     // if(m_robotContainer.m_leftStick.getTriggerPressed()) {
