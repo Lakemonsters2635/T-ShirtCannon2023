@@ -4,10 +4,13 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -17,53 +20,36 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-
+import frc.robot.commands.ShooterCommand;
 import frc.robot.subsystems.DifferentialDrive2;
 import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.ShooterCommand;
 
 /**
  * This is a demo program showing the use of the DifferentialDrive class, specifically it contains
  * the code necessary to operate a robot with tank drive.
  */
 public class Robot extends TimedRobot {
-  public static Joystick m_leftStick = new Joystick(Constants.LEFT_JOYSTICK_CHANNEL);
-  public static Joystick m_rightStick = new Joystick(Constants.RIGHT_JOYSTICK_CHANNEL);
-  public static RotarySubsystem m_RotarySubsystem = new RotarySubsystem();
-  public static ArmRotationCommand m_ArmRotationCommand = new ArmRotationCommand(m_RotarySubsystem);
-  public final DifferentialDrive2 m_tankDrive = new DifferentialDrive2(); 
-  public final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
-  public final ShooterCommand shooterCommand = new ShooterCommand(m_shooterSubsystem);
-  // private CommandXboxController m_controller;
-  // private XboxController m_controller;
-
-  // private Trigger shooterButton;
+  private Command m_autonomousCommand;
+  private RobotContainer m_robotContainer;
 
   private Timer shootTimer;
   private Timer rotateTimer;
 
-  public void configureBindings(){
-    // Trigger shooterButton = new JoystickButton(m_controller, XboxController.Button.kB.value);
-    Trigger rotationButton = new JoystickButton(m_rightStick, Constants.ROTATION_BUTTON);
-    rotationButton.onTrue(new ArmRotationCommand(m_RotarySubsystem));
-    System.out.println("Robot.configureBindigs()");
-  }
   
   @Override
   public void robotInit(){
     System.out.println("Robot.robotInit()");
-    configureBindings();
-
-    m_leftStick = new Joystick(Constants.LEFT_JOYSTICK_CHANNEL);
-    m_rightStick = new Joystick(Constants.RIGHT_JOYSTICK_CHANNEL);
+    m_robotContainer = new RobotContainer();
     // m_controller = new XboxController(Constants.CONTROLLER_CHANNEL);
     // shooterButton = new JoystickButton(m_leftStick, 1);
-    shootTimer = new Timer();
-    rotateTimer = new Timer();
+    // shootTimer = new Timer();
+    // rotateTimer = new Timer();
   }
 
   @Override
-  public void robotPeriodic() {}
+  public void robotPeriodic() {
+    CommandScheduler.getInstance().run();
+  }
     
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
@@ -74,38 +60,48 @@ public class Robot extends TimedRobot {
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
-  public void autonomousInit() {}
+  public void autonomousInit() {
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.schedule();
+    }
+  }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {}
 
   @Override
-  public void teleopInit() {}
+  public void teleopInit() {
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.cancel();
+    }
+  }
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
 
     // TANK DRIVE
-    m_tankDrive.drive(m_leftStick.getY(), m_rightStick.getY());
+    m_robotContainer.m_tankDrive.drive(m_robotContainer.m_leftStick.getY(), m_robotContainer.m_rightStick.getY());
 
     // ROTATION BUTTON
-    String enconderCounts = ""+m_RotarySubsystem.getEncoderCounts();
-    SmartDashboard.putNumber("Encoder Counts",m_RotarySubsystem.getEncoderCounts());
+    // String enconderCounts = ""+m_RotarySubsystem.getEncoderCounts();
+    // SmartDashboard.putNumber("Encoder Counts",m_RotarySubsystem.getEncoderCounts());
 
     //System.out.println(m_RotarySubsystem.getEncoderCounts());
-    if(m_leftStick.getTriggerPressed()) {
-      m_ArmRotationCommand.initialize();
-      rotateTimer.start();
-    }
+    // if(m_leftStick.getTriggerPressed()) {
+    //   m_ArmRotationCommand.initialize();
+    //   rotateTimer.start();
+    // }
 
-    if(rotateTimer.get() > 1 && !m_RotarySubsystem.rotatorSwitch.get()) {
-      m_ArmRotationCommand.end(true);
-      System.out.println(m_RotarySubsystem.rotatorSwitch.get());
-      m_RotarySubsystem.resetEncoderCounts(); 
-      rotateTimer.reset();
-    }
+    // if(rotateTimer.get() > 1 && !m_RotarySubsystem.rotatorSwitch.get()) {
+    //   m_ArmRotationCommand.end(true);
+    //   System.out.println(m_RotarySubsystem.rotatorSwitch.get());
+    //   m_RotarySubsystem.resetEncoderCounts(); 
+    //   rotateTimer.reset();
+    // }
 
     // if(m_leftStick.getTriggerPressed()) {
     //   m_ArmRotationCommand.end(true);
@@ -138,23 +134,25 @@ public class Robot extends TimedRobot {
     */
 
     // SHOOT BUTTON
-    if (m_rightStick.getTriggerPressed()) {
-      shootTimer.start();
-      shooterCommand.initialize();
-      System.out.println("Right Stick");
-    }
-    if (shootTimer.get() >= 0.03) {
-      shooterCommand.end(true);
-      System.out.println("Left Stick");
-      shootTimer.stop();
-      shootTimer.reset();
-      // System.out.println(timer.get());
-    }
+    // if (m_rightStick.getTriggerPressed()) {
+    //   shootTimer.start();
+    //   shooterCommand.initialize();
+    //   System.out.println("Right Stick");
+    // }
+    // if (shootTimer.get() >= 0.03) {
+    //   shooterCommand.end(true);
+    //   System.out.println("Left Stick");
+    //   shootTimer.stop();
+    //   shootTimer.reset();
+    //   // System.out.println(timer.get());
+    // }
     
   }
 
   @Override
-  public void testInit() {}
+  public void testInit() {
+    CommandScheduler.getInstance().cancelAll();
+  }
 
   /** This function is called periodically during test mode. */
   @Override
