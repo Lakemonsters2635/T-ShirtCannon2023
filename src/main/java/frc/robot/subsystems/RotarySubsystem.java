@@ -2,12 +2,13 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot;
+package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 
 public class RotarySubsystem extends SubsystemBase{
@@ -25,25 +26,30 @@ public class RotarySubsystem extends SubsystemBase{
     rotatorSwitch = new DigitalInput(Constants.ROTATOR_SWITCH_CHANNEL);
   }
 
-  public void rotate(){
+  public void rotate() {
     // We need to put a speed value
    // System.out.println("Speed Setting.........");
     rotaryMotor.set(Constants.ROTARY_SPEED);
     //System.out.println("Speed Set!!!!!!!!");
   }
-  public void stop(){
+
+  public void stop() {
     rotaryMotor.set(Constants.ROTARY_STOP);
   }
 
-  public void resetEncoderCounts(){
+  public void resetEncoderCounts() {
     rotationEncoder.reset();
   }
-  public double getEncoderCounts(){
+
+  public double getEncoderCounts() {
     //System.out.println("Count is " + theta); 
     
     return rotationEncoder.getRaw();
   }
   
+  public boolean getRotatorSwitch() {
+    return rotatorSwitch.get();
+  }
 
   @Override
   public void periodic(){

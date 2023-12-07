@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class ShooterCommand extends CommandBase {
-  private ShooterSubsystem m_shooterSubsystem;
+  private ShooterSubsystem shooterSubsystem;
   Timer m_timer;
 
   double startTime;
@@ -21,10 +21,10 @@ public class ShooterCommand extends CommandBase {
   /** Creates a new ShooterCommand. */
   public ShooterCommand(ShooterSubsystem shooterSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_shooterSubsystem = shooterSubsystem;
+    this.shooterSubsystem = shooterSubsystem;
     m_timer = new Timer();
     
-    addRequirements(m_shooterSubsystem);
+    addRequirements(shooterSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -34,8 +34,8 @@ public class ShooterCommand extends CommandBase {
     m_timer.start();
     startTime = m_timer.get();
 
-    m_shooterSubsystem.shootForward();
-    isShooterForward =  m_shooterSubsystem.m_relay.get() == Value.kForward;
+    shooterSubsystem.shootForward();
+    isShooterForward =  shooterSubsystem.m_relay.get() == Value.kForward;
     System.out.println("In initialize: " + isShooterForward);
     System.out.println("Shootercommand is working");
   }
@@ -49,8 +49,8 @@ public class ShooterCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_shooterSubsystem.shootOff();
-    isShooterForward = m_shooterSubsystem.m_relay.get() == Value.kForward;
+    shooterSubsystem.shootOff();
+    isShooterForward = shooterSubsystem.m_relay.get() == Value.kForward;
     System.out.println("In end method: " + isShooterForward);
   }
 

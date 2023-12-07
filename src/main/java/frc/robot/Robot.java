@@ -43,7 +43,7 @@ public class Robot extends TimedRobot {
     // m_controller = new XboxController(Constants.CONTROLLER_CHANNEL);
     // shooterButton = new JoystickButton(m_leftStick, 1);
     // shootTimer = new Timer();
-    // rotateTimer = new Timer();
+    rotateTimer = new Timer();
   }
 
   @Override
@@ -87,24 +87,24 @@ public class Robot extends TimedRobot {
     m_robotContainer.m_tankDrive.drive(m_robotContainer.m_leftStick.getY(), m_robotContainer.m_rightStick.getY());
 
     // ROTATION BUTTON
-    // String enconderCounts = ""+m_RotarySubsystem.getEncoderCounts();
-    // SmartDashboard.putNumber("Encoder Counts",m_RotarySubsystem.getEncoderCounts());
+    String enconderCounts = ""+m_robotContainer.m_RotarySubsystem.getEncoderCounts();
+    SmartDashboard.putNumber("Encoder Counts",m_robotContainer.m_RotarySubsystem.getEncoderCounts());
 
-    //System.out.println(m_RotarySubsystem.getEncoderCounts());
-    // if(m_leftStick.getTriggerPressed()) {
-    //   m_ArmRotationCommand.initialize();
+    // System.out.println(m_robotContainer.m_RotarySubsystem.getEncoderCounts());
+    // if(m_robotContainer.m_leftStick.getTriggerPressed()) {
+    //   m_robotContainer.m_ArmRotationCommand.initialize();
     //   rotateTimer.start();
     // }
 
-    // if(rotateTimer.get() > 1 && !m_RotarySubsystem.rotatorSwitch.get()) {
-    //   m_ArmRotationCommand.end(true);
-    //   System.out.println(m_RotarySubsystem.rotatorSwitch.get());
-    //   m_RotarySubsystem.resetEncoderCounts(); 
+    // if(rotateTimer.get() > 1 && !m_robotContainer.m_RotarySubsystem.rotatorSwitch.get()) {
+    //   m_robotContainer.m_ArmRotationCommand.end(true);
+    //   System.out.println(m_robotContainer.m_RotarySubsystem.rotatorSwitch.get());
+    //   m_robotContainer.m_RotarySubsystem.resetEncoderCounts(); 
     //   rotateTimer.reset();
     // }
 
-    // if(m_leftStick.getTriggerPressed()) {
-    //   m_ArmRotationCommand.end(true);
+    // if(m_robotContainer.m_leftStick.getTriggerPressed()) {
+    //   m_robotContainer.m_ArmRotationCommand.end(true);
     // }
     
    // System.out.println("On true area");

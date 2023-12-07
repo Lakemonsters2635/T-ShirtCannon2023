@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ArmRotationCommand;
 import frc.robot.commands.ShooterCommand;
 import frc.robot.subsystems.DifferentialDrive2;
+import frc.robot.subsystems.RotarySubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class RobotContainer {
@@ -34,7 +35,7 @@ public class RobotContainer {
         shooterButton.onTrue(new ShooterCommand(m_shooterSubsystem));
 
         Trigger rotationButton = new JoystickButton(m_leftStick, Constants.ROTATION_BUTTON);
-        // rotationButton.onTrue(new ArmRotationCommand(m_RotarySubsystem));
+        rotationButton.onTrue(new ArmRotationCommand(m_RotarySubsystem));
 
         System.out.println("Robot.configureBindigs()");
     }

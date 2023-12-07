@@ -4,47 +4,67 @@
 
 package frc.robot.commands;
 
+
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RotarySubsystem;
+import frc.robot.subsystems.RotarySubsystem;
 
 
 public class ArmRotationCommand extends CommandBase {
   /** Creates a new ArmRotationCommand. */
-  private RotarySubsystem m_RotarySubsystem;
-  
+  private RotarySubsystem rotarySubsystem;
+  private Timer timer;
+  private double startTime;
+  private double endTime;
+  private double delay = 1;
 
   public ArmRotationCommand(RotarySubsystem rotarySubsystem){
     // Use addRequirements() here to declare subsystem dependencies.
-    m_RotarySubsystem = rotarySubsystem;
+    this.rotarySubsystem = rotarySubsystem;
+    timer = new Timer();
+
     System.out.println("ArmRotationCommand Constructor");
-    addRequirements(m_RotarySubsystem);
+
+    addRequirements(this.rotarySubsystem);
   }
 
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_RotarySubsystem.resetEncoderCounts();
+    rotarySubsystem.resetEncoderCounts();
     System.out.println("ArmRotationCommand.initialize()");
-    m_RotarySubsystem.rotate();
-    
+
+    rotarySubsystem.rotate();
+    timer.reset();
+    timer.start();
+    startTime = timer.get();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute(){
+    endTime = timer.get();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_RotarySubsystem.stop();
+    rotarySubsystem.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    System.out.println(m_RotarySubsystem.getEncoderCounts());
+    // System.out.println(m_RotarySubsystem.getEncoderCounts());
+    if (timer.get() >= delay) {
+      System.out.println("Passed delay");
+      if(rotarySubsystem.getRotatorSwitch()){
+        return true;
+      }
+      rotarySubsystem.stop();
+      return true;  
+    }
     return false;
   }
 }
