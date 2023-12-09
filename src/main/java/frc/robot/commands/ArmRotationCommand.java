@@ -16,7 +16,7 @@ public class ArmRotationCommand extends CommandBase {
   private Timer timer;
   private double startTime;
   private double endTime;
-  private double delay = 1;
+  private double delay = .8;
 
   public ArmRotationCommand(RotarySubsystem rotarySubsystem){
     // Use addRequirements() here to declare subsystem dependencies.
@@ -57,9 +57,9 @@ public class ArmRotationCommand extends CommandBase {
   @Override
   public boolean isFinished() {
     // System.out.println(m_RotarySubsystem.getEncoderCounts());
-    if (timer.get() >= delay) {
+    if (timer.get() >= delay && !rotarySubsystem.getRotatorSwitch()) {
       System.out.println("Passed delay");
-      if(rotarySubsystem.getRotatorSwitch()){
+      if(!rotarySubsystem.getRotatorSwitch()){
         return true;
       }
       rotarySubsystem.stop();
