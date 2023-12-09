@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ArmRotationCommand;
@@ -31,15 +32,18 @@ public class RobotContainer {
     }
 
     private void configureBindings(){
+        
+        //xbox controller buttons
         Trigger shooterButtonX = new JoystickButton(m_controller, XboxController.Button.kB.value);
         shooterButtonX.onTrue(new ShooterCommand(m_shooterSubsystem));
 
         Trigger rotationButtonX = new JoystickButton(m_controller, XboxController.Button.kA.value);
         rotationButtonX.onTrue(new ArmRotationCommand(m_RotarySubsystem));
         
-        // Trigger combinedButton = new JoystickButton(m_controller, XboxController.Button.kX.value);
-        // rotationButtonX.onTrue(new SequentialCommandGroup(new ArmRotationCommand(m_RotarySubsystem), new ShooterCommand(m_shooterSubsystem)));
-
+        Trigger combinedButton = new JoystickButton(m_controller, XboxController.Button.kX.value);
+        combinedButton.onTrue(new SequentialCommandGroup(new ArmRotationCommand(m_RotarySubsystem),new ShooterCommand(m_shooterSubsystem)));
+            
+        //joystick buttons
         Trigger shooterButtonJ = new JoystickButton(m_rightStick, Constants.SHOOTER_BUTTON);
         shooterButtonJ.onTrue(new ShooterCommand(m_shooterSubsystem));
 
