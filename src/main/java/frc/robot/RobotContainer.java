@@ -24,7 +24,7 @@ public class RobotContainer {
     public final Joystick m_leftStick = new Joystick(Constants.LEFT_JOYSTICK_CHANNEL);
     public final Joystick m_rightStick = new Joystick(Constants.RIGHT_JOYSTICK_CHANNEL);
     // private CommandXboxController m_controller;
-    public final XboxController m_controller = new XboxController(Constants.CONTROLLER_CHANNEL);
+    public final static XboxController m_controller = new XboxController(Constants.CONTROLLER_CHANNEL);
 
     public RobotContainer() {
 

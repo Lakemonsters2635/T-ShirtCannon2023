@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems;
 import frc.robot.Constants;
-
+import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -47,6 +47,8 @@ public class DifferentialDrive2 extends SubsystemBase {
     
   @Override  
   public void periodic() {
+
+    drive(RobotContainer.m_controller.getLeftY(),RobotContainer.m_controller.getRawAxis(3));
     // This method will be called once per scheduler run
   }
 }
