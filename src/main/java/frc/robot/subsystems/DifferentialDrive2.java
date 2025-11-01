@@ -8,19 +8,24 @@ import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.PWM;
+
 // DifferentialDrive2 expects 4 motors instead of 2 motors.
 public class DifferentialDrive2 extends SubsystemBase {
   // Instantiates drive motors
-  private final Talon m_leftMotor1;
-  private final Talon m_leftMotor2;
-  private final Talon m_rightMotor1;
-  private final Talon m_rightMotor2;
+  private final TalonSRX m_leftMotor1;
+  private final TalonSRX m_leftMotor2;
+  private final TalonSRX m_rightMotor1;
+  private final TalonSRX m_rightMotor2;
   
   public DifferentialDrive2() {
-    m_leftMotor1 = new Talon(Constants.id_LEFTMOTOR1);
-    m_leftMotor2 = new Talon(Constants.id_LEFTMOTOR2);
-    m_rightMotor1 = new Talon(Constants.id_RIGHTMOTOR1);
-    m_rightMotor2 = new Talon(Constants.id_RIGHTMOTOR2);
+    m_leftMotor1 = new TalonSRX(Constants.id_LEFTMOTOR1);
+    m_leftMotor2 = new TalonSRX(Constants.id_LEFTMOTOR2);
+    m_rightMotor1 = new TalonSRX(Constants.id_RIGHTMOTOR1);
+    m_rightMotor2 = new TalonSRX(Constants.id_RIGHTMOTOR2);
   
     // We need to invert one side of the drivetrain so that positive voltages
     // result in both sides moving forward. Depending on how your robot's
@@ -38,10 +43,10 @@ public class DifferentialDrive2 extends SubsystemBase {
 
   public void drive(double lJoystick, double rJoystick)
   {
-    m_leftMotor1.set(lJoystick);
-    m_leftMotor2.set(lJoystick);
-    m_rightMotor1.set(rJoystick);
-    m_rightMotor2.set(rJoystick);
+    m_leftMotor1.set(ControlMode.PercentOutput,lJoystick);
+    m_leftMotor2.set(ControlMode.PercentOutput,lJoystick);
+    m_rightMotor1.set(ControlMode.PercentOutput,rJoystick);
+    m_rightMotor2.set(ControlMode.PercentOutput,rJoystick);
   }
 
     
